@@ -2,5 +2,6 @@
     "python.pythonPath": "/home/chris/.pyenv/versions/3.8.2/bin/python",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": false,
-    "python.linting.pycodestyleEnabled": false
+    "python.linting.pycodestyleEnabled": false,
+    "python.formatting.provider": "black"
 }
