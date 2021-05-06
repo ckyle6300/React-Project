@@ -1,8 +1,8 @@
-"""1 create schmea
+"""empty message
 
-Revision ID: 3361a103304e
+Revision ID: 39f3c59245e7
 Revises: 
-Create Date: 2021-05-05 16:15:08.576019
+Create Date: 2021-05-06 15:41:13.673837
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3361a103304e'
+revision = '39f3c59245e7'
 down_revision = None
 branch_labels = None
 depends_on = None

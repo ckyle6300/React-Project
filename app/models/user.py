@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     initial_amount = db.Column(db.Float, default=10000)
 
-    cryptos1 = db.relationship("Crypto", secondary=watchlists, back_populates="users")
+    cryptos1 = db.relationship("Crypto", secondary=watchlists, back_populates="users1")
 
     @property
     def password(self):

@@ -10,7 +10,7 @@ class Crypto(db.Model):
     description = db.Column(db.String(2000))
     abrv = db.Column(db.String(25), nullable=False, unique=True)
 
-    users1 = db.relationship("User", secondary="watchlists", back_populates="cryptos")
+    users1 = db.relationship("User", secondary="watchlists", back_populates="cryptos1")
 
     def users(self):
         portfolios = self.portfolios

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch} from "react-redux";
+import React, { useState, useEffect, Component } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
@@ -9,6 +9,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
+import Profile from './components/Profile/Index';
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -16,7 +17,7 @@ function App() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate())
       setLoaded(true);
     })();
@@ -25,6 +26,7 @@ function App() {
   if (!loaded) {
     return null;
   }
+
 
   return (
     <BrowserRouter>
@@ -37,13 +39,13 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path="/users" exact={true} >
-          <UsersList/>
+          <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true} >
           <User />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true}>
-          <h1>My Home Page</h1>
+          <Profile />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
