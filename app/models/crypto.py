@@ -16,3 +16,11 @@ class Crypto(db.Model):
         portfolios = self.portfolios
         users = [p.user for p in portfolios]
         return users
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "abrv": self.abrv,
+        }

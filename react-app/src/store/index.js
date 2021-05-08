@@ -1,10 +1,18 @@
-import {createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from 'redux-thunk';
 import session from './session'
+import dbcoins from './dbcoins'
+import coins from './coins'
+import onecoin from './onecoin'
+import watchlist from './watchlist'
 
 
 const rootReducer = combineReducers({
-    session
+    session,
+    dbcoins,
+    coins,
+    onecoin,
+    watchlist
 });
 
 let enhancer;

@@ -1,16 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 
 
 const Profile = () => {
-  const getData = async () => {
-    const x = await fetch('/api/coin/info');
-    const y = await x.json();
-    console.log(y);
-    return y;
-  }
 
-  const data = getData();
-  console.log(data);
 
   return (
     <h1>Okay</h1>

@@ -10,6 +10,8 @@ import User from "./components/User";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 import Profile from './components/Profile/Index';
+import CryptoList from './components/CrypoList/index'
+import CryptoInfo from './components/CryptoInfo/index'
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -46,6 +48,12 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true}>
           <Profile />
+        </ProtectedRoute>
+        <ProtectedRoute path="/cryptos" exact={true}>
+          <CryptoList />
+        </ProtectedRoute>
+        <ProtectedRoute path="/cryptos/:name" exact={true}>
+          <CryptoInfo />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

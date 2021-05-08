@@ -19,5 +19,5 @@ def seed_cryptos():
 
 
 def undo_cryptos():
-    db.session.execute("TRUNCATE cryptos;")
+    db.session.execute("TRUNCATE cryptos CASCADE;")
     db.session.commit()

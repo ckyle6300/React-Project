@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import { useSelector, useDispatch } from "react-redux";
+import { setCoin } from '../store/coins'
 
 const NavBar = () => {
+  const dispatch = useDispatch()
+  dispatch(setCoin())
+  const coinSetter = setInterval(() => dispatch(setCoin()), 30000);
+
+
   return (
     <nav>
       <ul>
@@ -29,6 +36,7 @@ const NavBar = () => {
         <li>
           <LogoutButton />
         </li>
+
       </ul>
     </nav>
   );

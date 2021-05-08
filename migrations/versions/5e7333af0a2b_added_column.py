@@ -1,8 +1,8 @@
-"""empty message
+"""added column
 
-Revision ID: 39f3c59245e7
+Revision ID: 5e7333af0a2b
 Revises: 
-Create Date: 2021-05-06 15:41:13.673837
+Create Date: 2021-05-07 17:28:36.139332
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '39f3c59245e7'
+revision = '5e7333af0a2b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -43,6 +43,7 @@ def upgrade():
     sa.Column('buying_price', sa.Float(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('crypto_id', sa.Integer(), nullable=False),
+    sa.Column('date_bought', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['crypto_id'], ['cryptos.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
