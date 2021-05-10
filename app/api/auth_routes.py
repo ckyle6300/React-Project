@@ -81,3 +81,16 @@ def unauthorized():
     Returns unauthorized JSON when flask-login authentication fails
     """
     return {"errors": ["Unauthorized"]}, 401
+
+
+@auth_routes.route("/update", methods=["PATCH"])
+def updateAmount():
+    data = request.json
+    totalBought = data["subtract"]
+    id = current_user.id
+
+    user = User.query.get(id)
+    user.initial_amount = user.initial_amount - totalBought
+    db.session.commit()
+
+    return {"user": user.to_dict()}

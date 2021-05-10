@@ -16,3 +16,13 @@ class Portfolio(db.Model):
 
     user = db.relationship("User", backref="portfolio", uselist=False)
     cryptos = db.relationship("Crypto", backref="portfolios")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "num_of_shares": self.num_of_shares,
+            "user_id": self.user_id,
+            "crypto_id": self.crypto_id,
+            "date_bought": self.date_bought,
+            "buying_price": self.buying_price,
+        }

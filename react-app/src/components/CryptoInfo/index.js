@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { setDbCoin } from '../../store/dbcoins'
 import { setOneCoin } from '../../store/onecoin'
 import { addToWL } from '../../store/watchlist'
+import PortfolioForm from '../PortfolioForm/index'
 
 
 const CryptoInfo = () => {
@@ -114,6 +115,7 @@ const CryptoInfo = () => {
           <div>{(coinData?.total_supply)?.toLocaleString()}</div>
         </div>
       </div>
+      <PortfolioForm />
     </div>
   )
 }
