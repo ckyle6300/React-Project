@@ -51,9 +51,17 @@ export const addToWL = (info) => async (dispatch) => {
 export default function oneCoinReducer(state = [], action) {
   switch (action.type) {
     case GET_WL:
-      return action.payload
+      const newState = {}
+      action.payload.forEach(obj => {
+        newState[obj.name] = obj
+      });
+      return newState
     case ADD_TO_WL:
-      return action.payload
+      const otherState = {}
+      action.payload.forEach(obj => {
+        otherState[obj.name] = obj
+      });
+      return otherState
     default:
       return state;
   }

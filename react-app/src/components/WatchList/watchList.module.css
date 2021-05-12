@@ -1,0 +1,42 @@
+.header {
+  margin: 0px auto;
+  background-color: rgb(70, 68, 68);
+  color: white;
+  max-width: 12rem;
+  max-height: rem;
+  overflow-y:a5uto;
+  padding: .7rem;
+  border-radius: 1.5rem;
+}
+
+.innerDiv{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.innerDiv p {
+  margin: 0px;
+}
+
+.outerDiv{
+  display: flex;
+  justify-content: space-between;
+}
+
+.outerDiv:hover{
+  background-color: rgb(65, 62, 62);
+}
+
+.outerDiv a {
+  text-decoration: none;
+  color: white;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: rgb(33, 187, 33);
+}

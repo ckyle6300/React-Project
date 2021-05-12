@@ -34,27 +34,24 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route path="/login" exact={true}>
+        {/* <Route path="/login" exact={true}>
           <LoginForm />
-        </Route>
-        <Route path="/sign-up" exact={true}>
+        </Route> */}
+        {/* <Route path="/sign-up" exact={true}>
           <SignUpForm />
-        </Route>
-        <ProtectedRoute path="/users" exact={true} >
-          <UsersList />
-        </ProtectedRoute>
+        </Route> */}
         <ProtectedRoute path="/users/:userId" exact={true} >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true}>
+        <ProtectedRoute path="/profile" exact={true}>
           <Profile />
         </ProtectedRoute>
-        <ProtectedRoute path="/cryptos" exact={true}>
+        <Route path="/" exact={true}>
           <CryptoList />
-        </ProtectedRoute>
-        <ProtectedRoute path="/cryptos/:name" exact={true}>
+        </Route>
+        <Route path="/cryptos/:name" exact={true}>
           <CryptoInfo />
-        </ProtectedRoute>
+        </Route>
       </Switch>
     </BrowserRouter>
   );

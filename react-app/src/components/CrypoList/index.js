@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCoin } from '../../store/coins'
 import { NavLink } from 'react-router-dom';
+import styles from './cryptoList.module.css'
+import WatchList from '../WatchList/index'
 
 const CryptoList = () => {
   const coins = useSelector((state) => state.coins)
+  const user = useSelector(state => state.session.user)
 
   useEffect(() => {
 
@@ -13,32 +16,56 @@ const CryptoList = () => {
   const coinArr = Object.values(coins);
 
   return (
-    <div>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-          <th>24h%</th>
-          <th>Market Cap</th>
-          <th>Circulating Supply</th>
-        </tr>
-        {coinArr.map((obj) => {
-          return (
+    <div className={styles.outerDiv}>
+      <div className={styles.left}>
+        <table className="table table-dark">
+          <thead>
             <tr>
-              <td> <NavLink to={`/cryptos/${obj.id}`}>
-                <div><img src={obj.image} /></div>
-                <div>{obj.name}</div>
-              </NavLink></td>
-              <td>{obj.current_price}</td>
-              <td>{obj.price_change_percentage_24h}</td>
-              <td>{obj.market_cap}</td>
-              <td>{obj.circulating_supply}</td>
+              <th>Name</th>
+              <th>Price</th>
+              <th>24h%</th>
+              <th>Market Cap</th>
+              <th>Circulating Supply</th>
             </tr>
+          </thead>
+          <tbody>
+            {coinArr.map((obj) => {
+              return (
+                <tr>
+                  <td>
+                    <NavLink to={`/cryptos/${obj.id}`} className={styles.imgDiv}>
+                      <div><img src={obj.image} className={styles.img} /></div>
+                      <div>{obj.name}</div>
+                    </NavLink>
+                  </td>
+                  <td>{(obj.current_price).toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  })}</td>
+                  <td className={obj.price_change_percentage_24h >= 0 ? styles.green : styles.red}>
+                    {(obj.price_change_percentage_24h).toLocaleString()}%
+                </td>
+                  <td>
+                    {(obj.market_cap).toLocaleString('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                    })}
+                  </td>
+                  <td>{(obj.circulating_supply).toLocaleString()}</td>
+                </tr>
 
-          )
-        }
-        )}
-      </table>
+              )
+            }
+            )}
+          </tbody>
+        </table>
+      </div >
+      {
+        user &&
+        <div className={styles.right}>
+          <WatchList />
+        </div>
+      }
     </div>
   )
 }

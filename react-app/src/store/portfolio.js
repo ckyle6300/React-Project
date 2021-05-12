@@ -1,8 +1,14 @@
 //constants
 const BUY_COIN = "portfolio/BUY_COIN"
+const GET_COINS = "portfolio/GET_COINS"
 
 const buy = (portfolio) => ({
   type: BUY_COIN,
+  payload: portfolio
+})
+
+const get = (portfolio) => ({
+  type: GET_COINS,
   payload: portfolio
 })
 
@@ -10,7 +16,6 @@ const buy = (portfolio) => ({
 
 export const buyCoin = (data) => async (dispatch) => {
 
-  console.log(data);
   const response = await fetch('/api/portfolio/buy', {
     method: "POST",
     headers: {
@@ -33,11 +38,24 @@ export const buyCoin = (data) => async (dispatch) => {
   return null
 }
 
+export const getPort = (data) => async (dispatch) => {
+  const response = await fetch('/api/portfolio/')
+  if (response.ok) {
+    const data = await response.json();
+    return dispatch(get(data));
+  } else {
+    console.log("problems with data")
+  }
+  return null
+}
+
 //reducer
 
 export default function portfolioReducer(state = [], action) {
   switch (action.type) {
     case BUY_COIN:
+      return action.payload
+    case GET_COINS:
       return action.payload
     default:
       return state;

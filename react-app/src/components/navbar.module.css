@@ -1,0 +1,18 @@
+.outerDiv{
+  display: flex;
+  justify-content: space-evenly;
+  background-color: black;
+  margin-bottom: 1rem;
+}
+
+.img{
+  width: 3rem;
+  border-radius: 25px;
+  margin:.2rem;
+}
+
+.buttonDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

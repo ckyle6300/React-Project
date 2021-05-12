@@ -1,0 +1,39 @@
+.imgDiv {
+  display: flex;
+  text-decoration: none;
+  color: white;
+}
+
+.img {
+  height: 2.5rem;
+  margin-right: 1rem;
+
+}
+
+thead th {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}
+
+.red {
+  color: red;
+}
+
+.green{
+  color: rgb(33, 187, 33);
+}
+
+.outerDiv {
+  display: flex;
+}
+
+.left{
+  flex: 80%;
+}
+
+.right{
+  flex: 20%;
+}

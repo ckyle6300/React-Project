@@ -5,6 +5,14 @@ from flask_login import current_user
 portfolio_routes = Blueprint("portfolio", __name__)
 
 
+@portfolio_routes.route("/")
+def getPort():
+    id = current_user.id
+    portfolio = Portfolio.query.filter(Portfolio.user_id == id).all()
+    port = [p.to_dict() for p in portfolio]
+    return jsonify(port)
+
+
 @portfolio_routes.route("/buy", methods=["POST"])
 def buy():
     data = request.json

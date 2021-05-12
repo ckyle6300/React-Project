@@ -1,0 +1,25 @@
+.outerDiv {
+  margin-top: .7rem;
+}
+
+.searchDiv{
+  display: flex;
+  align-content: center;
+  text-decoration: none;
+}
+
+.cryptoImg{
+  width: 1.3rem;
+  margin-right: .7rem;
+}
+
+.contentDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contentDiv p {
+  margin-top: auto;
+  margin-bottom: auto;
+}
