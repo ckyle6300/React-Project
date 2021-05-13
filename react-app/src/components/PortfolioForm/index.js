@@ -40,7 +40,7 @@ const PortfolioForm = () => {
       dispatch(buyCoin(portfolioData));
       dispatch(changeAmount(userData));
 
-      history.push('/')
+      history.push('/profile')
     }
   }
 

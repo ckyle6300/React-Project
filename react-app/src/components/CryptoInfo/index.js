@@ -131,7 +131,7 @@ const CryptoInfo = () => {
             </Modal>
           </div>
         </div>}
-        <div>
+        <div className={styles.descript}>
           <p dangerouslySetInnerHTML={{ __html: coin?.description?.en }} />
         </div>
       </div>

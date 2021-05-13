@@ -51,7 +51,7 @@ const Profile = () => {
 
   useEffect(() => {
 
-  }, [coins, allInfo, portfolioVal, user?.amount])
+  }, [coins, allInfo])
 
   return (
     <div>

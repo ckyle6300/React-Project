@@ -31,37 +31,45 @@ const LoginForm = () => {
     return <Redirect to="/" />;
   }
 
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    await dispatch(login("demo@aa.io", "password"))
+  }
+
 
   return (
-    <form className={styles.outerDiv} onSubmit={onLogin}>
-      <div>
-        {errors.map((error) => (
-          <div>{error}</div>
-        ))}
-      </div>
-      <div>
+    <div className={styles.outerDiv}>
+      <form onSubmit={onLogin}>
+        <div>
+          {errors.map((error) => (
+            <div>{error}</div>
+          ))}
+        </div>
+        <div>
 
-        <input
-          name="email"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
+          <input
+            name="email"
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={updateEmail}
+          />
+        </div>
+        <div>
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <br />
-        <button type="submit">Login</button>
-      </div>
-    </form>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={updatePassword}
+          />
+          <br />
+          <button type="submit">Login</button>
+        </div>
+      </form>
+      <button onClick={demoLogin}>Demo Login</button>
+    </div>
   );
 };
 

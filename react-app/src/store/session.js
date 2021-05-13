@@ -48,7 +48,7 @@ export const login = (email, password) => async (dispatch) => {
     if (data.errors) {
         return data;
     }
-    dispatch(updateAmount(data));
+    dispatch(setUser(data));
     return {};
 }
 
@@ -90,8 +90,8 @@ export const changeAmount = ({ amount }) => async (dispatch) => {
         }),
     });
     const data = await response.json();
-    console.log(data)
-    dispatch(setUser(data));
+
+    dispatch(updateAmount(data));
 }
 
 // reducer
@@ -107,7 +107,7 @@ export default function reducer(state = initialState, action) {
         case REMOVE_USER:
             return { user: null };
         case UPDATE_AMOUNT:
-            return action.payload.user;
+            return { user: action.payload };
         default:
             return state;
     }
