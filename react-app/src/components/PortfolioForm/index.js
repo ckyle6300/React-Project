@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useHistory } from 'react-router';
 import { buyCoin } from '../../store/portfolio'
 import { changeAmount } from '../../store/session'
+import styles from './portfolioForm.module.css'
 
 
 const PortfolioForm = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const history = useHistory();
   const dbCoin = useSelector(state => state.dbcoins);
   const coin = useSelector(state => state.onecoin);
   const user = useSelector(state => state.session.user);
@@ -17,33 +20,40 @@ const PortfolioForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const portfolioData = {
-      num_of_shares: Number(num_of_shares),
-      buying_price: mkt?.current_price,
-      user_id: user?.id,
-      crypto_id: currCoin?.id
-    }
 
-    const total = Number(num_of_shares * mkt?.current_price)
-    const userData = {
-      user_id: user?.id,
-      amount: total
-    }
+    if (user?.amount < (num_of_shares * mkt?.current_price)) {
+      alert("Insuficient Funds")
+    } else {
+      const portfolioData = {
+        num_of_shares: Number(num_of_shares),
+        buying_price: mkt?.current_price,
+        user_id: user?.id,
+        crypto_id: currCoin?.id
+      }
 
-    dispatch(buyCoin(portfolioData));
-    dispatch(changeAmount(userData));
+      const total = Number(num_of_shares * mkt?.current_price)
+      const userData = {
+        user_id: user?.id,
+        amount: total
+      }
+
+      dispatch(buyCoin(portfolioData));
+      dispatch(changeAmount(userData));
+
+      history.push('/')
+    }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.outerDiv} onSubmit={handleSubmit}>
       <div>
-        <label>Balance Available {(user?.amount)?.toLocaleString('en-US', {
+        <label>Cash Available {(user?.amount)?.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         })}</label>
       </div>
       <div>
-        <label># of shares</label>
+        <label># of shares </label>
         <input onChange={(e) => setNum_of_shares(e.target.value)} />
       </div>
       <div>

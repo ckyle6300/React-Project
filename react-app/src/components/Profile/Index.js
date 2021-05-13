@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import WatchList from '../WatchList/index'
 import { getPort } from '../../store/portfolio'
 import { setDbCoin } from '../../store/dbcoins'
-
+import styles from './profile.module.css'
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -51,71 +51,97 @@ const Profile = () => {
 
   useEffect(() => {
 
-  }, [coins])
+  }, [coins, allInfo, portfolioVal, user?.amount])
 
   return (
-    <>
-      <table class="table table-dark table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
-      <div>
-        <div><h2>Portfolio: {portfolioVal + user?.amount}</h2></div>
-        <div><p>Cash: {user?.amount}</p></div>
-        <div> Gain:
-          <div>{portfolioVal - boughtAt}</div>
-          <div>{(portfolioVal / boughtAt) - 1}</div>
+    <div>
+      <div className={styles.portfolio}>
+        <div>
+          <h2>
+            Portfolio: {(portfolioVal + user?.amount)?.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          })}
+          </h2>
+        </div>
+        <div>
+          <h4>
+            Cash on hand: {(user?.amount)?.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          })}
+          </h4>
+        </div>
+        <div className={styles.profit}>
+          <span>Profit / Loss: </span>
+          <span className={(portfolioVal - boughtAt) >= 0 ? styles.green : styles.red}>
+            {(portfolioVal - boughtAt).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            })}
+          </span>
+        </div>
+        <div className={styles.profit}>
+          {portfolioVal == 0 ? " " :
+            <>
+              <span>Profit / Loss %: </span>
+              <span className={((portfolioVal / boughtAt) - 1) >= 0 ? styles.green : styles.red}>
+                {((portfolioVal / boughtAt) - 1).toLocaleString()}%
+              </span>
+            </>
+          }
         </div>
       </div>
-      <div>
-        {
-          allInfo.map((obj) => (
-            <>
-              <div><img src={obj.image} /></div>
-              <div><h3>{obj.name}</h3></div>
-              <div><p>Date Bought : {obj.date_bought}</p></div>
-              <div>
-                <p>Price: {obj.current_price}</p>
-                <p>24h % Change : {obj.price_change_percentage_24h}%</p>
-              </div>
-              <div><p>Value: {obj.buying_price * obj.num_of_shares}</p></div>
-              <div>Gain:
-                <div><p>{(obj.current_price * obj.num_of_shares) - (obj.buying_price * obj.num_of_shares)}</p></div>
-                <div><p>{((obj.current_price * obj.num_of_shares) / (obj.buying_price * obj.num_of_shares)) - 1}</p></div>
-              </div>
-            </>
-          ))
-        }
+      <div className={styles.divFlex}>
+        <div className={styles.left}>
+          <table class="table table-hover table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date Bought</th>
+                <th scope="col">Price & 24h % Change</th>
+                <th scope="col">Value</th>
+                <th scope="col">Gain $ & %</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                allInfo.map((obj) => (
+                  <tr>
+                    <td className={styles.tdFlex}>
+                      <img src={obj.image} className={styles.img} />
+                      <span>{obj.name}</span>
+                    </td>
+                    <td>{(obj.date_bought)}</td>
+                    <td className={styles.ps}>
+                      <p>${(obj.current_price).toLocaleString()}</p>
+                      <p className={obj.price_change_percentage_24h >= 0 ? styles.green : styles.red}>
+                        {(obj.price_change_percentage_24h).toLocaleString()}%
+                      </p>
+                    </td>
+                    <td>${(obj.buying_price * obj.num_of_shares).toLocaleString()}</td>
+                    <td className={styles.ps}>
+                      <p className={(obj.current_price * obj.num_of_shares) - (obj.buying_price * obj.num_of_shares) >= 0 ? styles.green : styles.red}>
+                        {((obj.current_price * obj.num_of_shares) - (obj.buying_price * obj.num_of_shares)).toLocaleString('en-US', {
+                          style: 'currency',
+                          currency: 'USD',
+                        })}
+                      </p>
+                      <p className={(((obj.current_price * obj.num_of_shares) / (obj.buying_price * obj.num_of_shares)) - 1) >= 0 ? styles.green : styles.red}>
+                        {(((obj.current_price * obj.num_of_shares) / (obj.buying_price * obj.num_of_shares)) - 1).toLocaleString()}%
+                    </p>
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <div className={styles.right}>
+          <WatchList />
+        </div>
       </div>
-      <div>
-        <WatchList />
-      </div>
-    </>
+    </div>
   )
 }
 

@@ -9,6 +9,8 @@ import styles from './cryptoInfo.module.css'
 import WatchList from '../WatchList/index'
 import Modal from "react-modal";
 
+{/* from stack overflow https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-strings */ }
+
 const customStyles = {
   overlay: {
     position: "fixed",
@@ -50,6 +52,15 @@ const CryptoInfo = () => {
 
   function openModalBuy() {
     setIsOpenBuy(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // subtitle.style.color = '#f00';
+  }
+
+  function closeModalBuy() {
+    setIsOpenBuy(false);
   }
 
   useEffect(() => {
@@ -94,7 +105,32 @@ const CryptoInfo = () => {
             </div>
           </div>
         </div>
-        <button onClick={handleClick}>Add To WatchList</button>
+        {user && <div className={styles.btnDiv}>
+          <div>
+            <button className="btn btn-info" onClick={handleClick}>Add To WatchList</button>
+          </div>
+          <div>
+            <button
+              className="btn btn-success"
+              onClick={openModalBuy}
+            >
+              Buy Crypto
+            </button>
+            <Modal
+              isOpen={modalIsOpenBuy}
+              onAfterOpen={afterOpenModal}
+              onRequestClose={closeModalBuy}
+              style={customStyles}
+              contentLabel="Example Modal"
+            >
+              <PortfolioForm
+                setIsOpenBuy={setIsOpenBuy}
+                openModalBuy={openModalBuy}
+                closeModalBuy={closeModalBuy}
+              />
+            </Modal>
+          </div>
+        </div>}
         <div>
           <p dangerouslySetInnerHTML={{ __html: coin?.description?.en }} />
         </div>
@@ -116,12 +152,15 @@ const CryptoInfo = () => {
           <div className={styles.ex}>
             <div>Price Change 24h : </div>
             <div>
-              <div>{(coinData?.price_change_24h)?.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-              })}</div>
-              {/* from stack overflow https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-strings */}
-              <div>{(coinData?.price_change_percentage_24h)?.toLocaleString()}%</div>
+              <div className={coinData?.price_change_24h >= 0 ? styles.greenFont : styles.redFont}>
+                {(coinData?.price_change_24h)?.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                })}
+              </div>
+              <div className={coinData?.price_change_percentage_24h >= 0 ? styles.greenFont : styles.redFont}>
+                {(coinData?.price_change_percentage_24h)?.toLocaleString()}%
+              </div>
             </div>
           </div>
           <div className={styles.ex}>

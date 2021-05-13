@@ -93,4 +93,4 @@ def updateAmount():
     user.initial_amount = user.initial_amount - totalBought
     db.session.commit()
 
-    return {"user": user.to_dict()}
+    return user.to_dict()

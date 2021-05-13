@@ -90,6 +90,7 @@ export const changeAmount = ({ amount }) => async (dispatch) => {
         }),
     });
     const data = await response.json();
+    console.log(data)
     dispatch(setUser(data));
 }
 
@@ -106,7 +107,7 @@ export default function reducer(state = initialState, action) {
         case REMOVE_USER:
             return { user: null };
         case UPDATE_AMOUNT:
-            return { user: action.payload };
+            return action.payload.user;
         default:
             return state;
     }

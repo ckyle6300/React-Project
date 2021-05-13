@@ -1,0 +1,49 @@
+.ps p{
+  margin: 0px;
+}
+
+.img {
+  width: 2rem;
+  margin-right: 1rem;
+}
+
+thead th {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}
+
+.divFlex{
+  display: flex;
+}
+
+.left{
+  flex: 80%;
+}
+
+.right{
+  flex: 20%;
+}
+
+.red {
+  color:#f8002f;
+}
+
+.green{
+  color: green;
+}
+
+.portfolio{
+  background-color: #f88f55;
+  width: 30rem;
+  margin: 15px auto;
+  text-align: center;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.profit span{
+  font-size: x-large;
+}
