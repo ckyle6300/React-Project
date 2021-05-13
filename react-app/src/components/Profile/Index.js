@@ -42,8 +42,7 @@ const Profile = () => {
     portfolioVal += crypto.num_of_shares * crypto.current_price;
     boughtAt += crypto.num_of_shares * crypto.buying_price;
   })
-  console.log(portfolioVal, boughtAt)
-  console.log(allInfo);
+
   useEffect(() => {
     dispatch(getPort())
     dispatch(setDbCoin())
@@ -94,6 +93,7 @@ const Profile = () => {
       </div>
       <div className={styles.divFlex}>
         <div className={styles.left}>
+
           <table class="table table-hover table-dark">
             <thead>
               <tr>

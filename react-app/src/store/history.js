@@ -10,11 +10,9 @@ const setHistories = (data) => ({
 //thunks
 
 export const setHistory = (name) => async (dispatch) => {
-  console.log(name)
   const response = await fetch(`/api/coin/${name}/chartinfo`);
   if (response.ok) {
     const data = await response.json();
-    console.log(data)
     return dispatch(setHistories(data));
   } else {
     console.log("problems with data")

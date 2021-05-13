@@ -39,7 +39,6 @@ Modal.setAppElement("#root");
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
   const user = useSelector(state => state.session.user)
-  console.log(user);
   const dispatch = useDispatch()
   dispatch(setCoin())
   const coinSetter = setInterval(() => dispatch(setCoin()), 30000);

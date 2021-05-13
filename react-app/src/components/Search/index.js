@@ -10,7 +10,6 @@ const Search = () => {
   const [search, setSearch] = useState('');
   const history = useHistory()
 
-  console.log(name);
   const vals = Object.values(coins);
   let searchArr = []
   if (search) {
