@@ -15,7 +15,7 @@ thead th {
     position: -webkit-sticky;
     top: 0;
     background: white;
-    z-index: 10;
+    z-index: 2;
 }
 
 .red {

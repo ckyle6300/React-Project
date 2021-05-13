@@ -100,6 +100,7 @@ const Profile = () => {
                 <th scope="col">Name</th>
                 <th scope="col">Date Bought</th>
                 <th scope="col">Price & 24h % Change</th>
+                <th scope="col"># of Shares</th>
                 <th scope="col">Value</th>
                 <th scope="col">Gain $ & %</th>
               </tr>
@@ -119,6 +120,7 @@ const Profile = () => {
                         {(obj.price_change_percentage_24h).toLocaleString()}%
                       </p>
                     </td>
+                    <td>{obj.num_of_shares}</td>
                     <td>${(obj.buying_price * obj.num_of_shares).toLocaleString()}</td>
                     <td className={styles.ps}>
                       <p className={(obj.current_price * obj.num_of_shares) - (obj.buying_price * obj.num_of_shares) >= 0 ? styles.green : styles.red}>

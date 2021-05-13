@@ -17,7 +17,7 @@ const customStyles = {
     right: 0,
     bottom: 0,
     backgroundColor: "rgba(0, 0, 0, 0.8)",
-    zIndex: 5,
+    zIndex: 12,
   },
   content: {
     position: "absolute",

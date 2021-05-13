@@ -6,6 +6,7 @@ import coins from './coins'
 import onecoin from './onecoin'
 import watchlist from './watchlist'
 import portfolio from './portfolio'
+import history from './history'
 
 
 const rootReducer = combineReducers({
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     coins,
     onecoin,
     watchlist,
-    portfolio
+    portfolio,
+    history
 });
 
 let enhancer;

@@ -8,6 +8,8 @@ import PortfolioForm from '../PortfolioForm/index'
 import styles from './cryptoInfo.module.css'
 import WatchList from '../WatchList/index'
 import Modal from "react-modal";
+import Chart from '../Chart/index'
+import { setHistory } from '../../store/history';
 
 {/* from stack overflow https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-strings */ }
 
@@ -19,7 +21,7 @@ const customStyles = {
     right: 0,
     bottom: 0,
     backgroundColor: "rgba(0, 0, 0, 0.8)",
-    zIndex: 5,
+    zIndex: 12,
   },
   content: {
     position: "absolute",
@@ -66,6 +68,7 @@ const CryptoInfo = () => {
   useEffect(() => {
     dispatch(setOneCoin(name))
     dispatch(setDbCoin())
+    dispatch(setHistory(name))
   }, [dispatch, name])
 
   useEffect(() => {
@@ -131,6 +134,7 @@ const CryptoInfo = () => {
             </Modal>
           </div>
         </div>}
+        <div className={styles.chart}><Chart /></div>
         <div className={styles.descript}>
           <p dangerouslySetInnerHTML={{ __html: coin?.description?.en }} />
         </div>
