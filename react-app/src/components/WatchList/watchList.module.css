@@ -40,3 +40,8 @@
 .green {
   color: rgb(33, 187, 33);
 }
+
+.xImg {
+  width: 1.3rem;
+  border-radius: 6rem;
+}

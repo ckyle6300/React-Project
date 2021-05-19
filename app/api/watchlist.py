@@ -21,7 +21,17 @@ def add():
     crypto = Crypto.query.get(cryptoid)
     user.cryptos1.append(crypto)
     db.session.commit()
-    print(user.cryptos1, "+++++++++++++++++++++++++++++++++++++++")
     info = [crypto.to_dict() for crypto in user.cryptos1]
-    print(info, "++++++++++++++++++++++++++++++++++++++")
+    return jsonify(info)
+
+
+@watchlist_routes.route("/del", methods=["POST"])
+def delWl():
+    id = request.json
+    user = User.query.get(current_user.id)
+    crypto = Crypto.query.get(id["crypto_id"])
+    print(crypto, "*************************")
+    user.cryptos1.remove(crypto)
+    db.session.commit()
+    info = [crypto.to_dict() for crypto in user.cryptos1]
     return jsonify(info)

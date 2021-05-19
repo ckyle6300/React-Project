@@ -1,7 +1,8 @@
 //constants
 
-const ADD_TO_WL = "wl/ADD_TO_WL"
-const GET_WL = "wl/GET_WL"
+const ADD_TO_WL = "wl/ADD_TO_WL";
+const GET_WL = "wl/GET_WL";
+const DEL_WL = "wl/DEL_WL";
 
 const addWL = (watchList) => ({
   type: ADD_TO_WL,
@@ -10,6 +11,11 @@ const addWL = (watchList) => ({
 
 const getTheWL = (watchlist) => ({
   type: GET_WL,
+  payload: watchlist
+})
+
+const delCoin = (watchlist) => ({
+  type: DEL_WL,
   payload: watchlist
 })
 
@@ -46,6 +52,25 @@ export const addToWL = (info) => async (dispatch) => {
   return null
 }
 
+export const delFromWl = (crypto_id) => async (dispatch) => {
+  console.log(crypto_id, "Hello")
+  const response = await fetch('/api/watchlist/del', {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "crypto_id": crypto_id
+    })
+  })
+  if (response.ok) {
+    const data = await response.json();
+    return dispatch(delCoin(data));
+  } else {
+    console.log("problems with data")
+  }
+  return null
+}
 //reducer
 
 export default function oneCoinReducer(state = [], action) {
@@ -62,6 +87,13 @@ export default function oneCoinReducer(state = [], action) {
         otherState[obj.name] = obj
       });
       return otherState
+    case DEL_WL:
+      const delState = {}
+      action.payload.forEach(obj => {
+        delState[obj.name] = obj
+      });
+      return delState
+
     default:
       return state;
   }

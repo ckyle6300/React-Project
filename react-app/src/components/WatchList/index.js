@@ -1,6 +1,6 @@
-import React, { useEffect, useImperativeHandle } from 'react';
+import React, { useEffect, useImperativeHandle, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllWl } from '../../store/watchlist'
+import { getAllWl, delFromWl } from '../../store/watchlist'
 import styles from './watchList.module.css'
 import { NavLink } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ const WatchList = () => {
   const user = useSelector(state => state.session.user)
   const watchlist = useSelector(state => state.watchlist)
   const coins = useSelector(state => state.coins)
+  const dbCoins = useSelector(state => state.dbcoins)
 
   const newWL = [];
 
@@ -32,6 +33,12 @@ const WatchList = () => {
   useEffect(() => {
 
   }, [coins])
+
+  const deleteCrypto = (name) => {
+    const id = dbCoins[name].id
+    console.log(id)
+    dispatch(delFromWl(id))
+  }
 
 
   return (
@@ -56,6 +63,9 @@ const WatchList = () => {
                     {(crypto.price_change_percentage_24h).toLocaleString()}%
                   </p>
                 </div>
+              </div>
+              <div>
+                <img className={styles.xImg} src="https://cdn.xxl.thumbs.canstockphoto.com/cross-sign-red-element-cross-sign-element-red-x-icon-isolated-on-white-background-simple-mark-clip-art-vector_csp44320065.jpg" value={crypto.name} onClick={e => deleteCrypto(crypto.name)} />
               </div>
             </div>
           ))

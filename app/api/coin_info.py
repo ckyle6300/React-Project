@@ -29,12 +29,10 @@ def coininfo(name):
 
 @coin_routes.route("/<name>/chartinfo")
 def chartInfo(name):
-    print(name, "8888888888888888888888888888888888888888888888")
     info = cg.get_coin_market_chart_by_id(
         name,
         vs_currency="usd",
         days=30,
         interval="daily",
     )
-
     return info
