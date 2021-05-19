@@ -47,12 +47,11 @@ const WatchList = () => {
         {
           newWL?.map(crypto => (
             <div className={styles.outerDiv}>
-              <div>
-
+              <div className={styles.title}>
                 <h4><NavLink to={`/cryptos/${crypto.id}`}>{crypto.symbol}</NavLink></h4>
               </div>
               <div className={styles.innerDiv} >
-                <div>
+                <div className={styles.info}>
                   <p>
                     {(crypto.current_price).toLocaleString('en-US', {
                       style: 'currency',
@@ -64,7 +63,7 @@ const WatchList = () => {
                   </p>
                 </div>
               </div>
-              <div>
+              <div className={styles.del}>
                 <img className={styles.xImg} src="https://cdn.xxl.thumbs.canstockphoto.com/cross-sign-red-element-cross-sign-element-red-x-icon-isolated-on-white-background-simple-mark-clip-art-vector_csp44320065.jpg" value={crypto.name} onClick={e => deleteCrypto(crypto.name)} />
               </div>
             </div>

@@ -1,12 +1,24 @@
 .header {
+  text-align: center;
   margin: 0px auto;
   background-color: rgb(70, 68, 68);
   color: white;
-  max-width: 12rem;
+  max-width: 13rem;
   max-height: rem;
   overflow-y:a5uto;
   padding: .7rem;
   border-radius: 1.5rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .innerDiv{
@@ -22,6 +34,7 @@
 .outerDiv{
   display: flex;
   justify-content: space-between;
+  margin-bottom: .1rem;
 }
 
 .outerDiv:hover{
@@ -43,5 +56,11 @@
 
 .xImg {
   width: 1.3rem;
+  height: 1.3rem;
   border-radius: 6rem;
+}
+
+.del {
+  display: flex;
+  align-items: center;
 }

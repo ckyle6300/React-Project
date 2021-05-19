@@ -1,0 +1,28 @@
+.outerDiv{
+  background-color: teal;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+  border-radius: 3rem;
+  color: white
+}
+
+.outerDiv label {
+  font-size: large;
+  margin-top: .2rem;
+}
+
+.outerDiv button {
+  background-color: tomato;
+  border-radius: 1.5rem;
+  padding: .3rem .7rem;
+  margin: .1rem auto;
+}
+
+.outerDiv input {
+  margin-left: .5rem;
+  border-radius: .3rem;
+  padding: .2rem;
+}
+

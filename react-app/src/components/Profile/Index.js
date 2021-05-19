@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import WatchList from '../WatchList/index'
-import { getPort } from '../../store/portfolio'
-import { setDbCoin } from '../../store/dbcoins'
-import styles from './profile.module.css'
+import WatchList from '../WatchList/index';
+import { getPort } from '../../store/portfolio';
+import { setDbCoin } from '../../store/dbcoins';
+import styles from './profile.module.css';
+import Sell from '../Sell/index';
+import SellButton from '../Sell/SellButton'
+
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -36,8 +39,10 @@ const Profile = () => {
       }
     }
   }
+
   let portfolioVal = 0;
   let boughtAt = 0
+
   allInfo.forEach((crypto) => {
     portfolioVal += crypto.num_of_shares * crypto.current_price;
     boughtAt += crypto.num_of_shares * crypto.buying_price;
@@ -50,7 +55,8 @@ const Profile = () => {
 
   useEffect(() => {
 
-  }, [coins, allInfo])
+  }, [coins, allInfo, user])
+
 
   return (
     <div>
@@ -103,6 +109,7 @@ const Profile = () => {
                 <th scope="col"># of Shares</th>
                 <th scope="col">Value</th>
                 <th scope="col">Gain $ & %</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -113,7 +120,7 @@ const Profile = () => {
                       <img src={obj.image} className={styles.img} />
                       <span>{obj.name}</span>
                     </td>
-                    <td>{(obj.date_bought)}</td>
+                    <td>{(obj.date_bought).toLocaleString()}</td>
                     <td className={styles.ps}>
                       <p>${(obj.current_price).toLocaleString()}</p>
                       <p className={obj.price_change_percentage_24h >= 0 ? styles.green : styles.red}>
@@ -121,7 +128,7 @@ const Profile = () => {
                       </p>
                     </td>
                     <td>{obj.num_of_shares}</td>
-                    <td>${(obj.buying_price * obj.num_of_shares).toLocaleString()}</td>
+                    <td>${(obj.current_price * obj.num_of_shares).toLocaleString()}</td>
                     <td className={styles.ps}>
                       <p className={(obj.current_price * obj.num_of_shares) - (obj.buying_price * obj.num_of_shares) >= 0 ? styles.green : styles.red}>
                         {((obj.current_price * obj.num_of_shares) - (obj.buying_price * obj.num_of_shares)).toLocaleString('en-US', {
@@ -132,6 +139,11 @@ const Profile = () => {
                       <p className={(((obj.current_price * obj.num_of_shares) / (obj.buying_price * obj.num_of_shares)) - 1) >= 0 ? styles.green : styles.red}>
                         {(((obj.current_price * obj.num_of_shares) / (obj.buying_price * obj.num_of_shares)) - 1).toLocaleString()}%
                     </p>
+                    </td>
+                    <td>
+                      <div>
+                        <SellButton crypto={obj} />
+                      </div>
                     </td>
                   </tr>
                 ))

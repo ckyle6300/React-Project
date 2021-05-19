@@ -29,3 +29,28 @@ def buy():
     portfolio = Portfolio.query.filter(Portfolio.user_id == id).all()
     port = [p.to_dict() for p in portfolio]
     return jsonify(port)
+
+
+@portfolio_routes.route("/sell", methods=["PATCH"])
+def sellCrypto():
+    data = request.json
+    portfolio = Portfolio.query.get(data["id"])
+    newNum = portfolio.num_of_shares - data["num_of_shares"]
+    portfolio.num_of_shares = newNum
+    db.session.commit()
+
+    portfolio = Portfolio.query.filter(Portfolio.user_id == current_user.id).all()
+    port = [p.to_dict() for p in portfolio]
+    return jsonify(port)
+
+
+@portfolio_routes.route("/del", methods=["DELETE"])
+def delCrypto():
+    data = request.json
+    portfolio = Portfolio.query.get(data["id"])
+    db.session.delete(portfolio)
+    db.session.commit()
+
+    portfolio = Portfolio.query.filter(Portfolio.user_id == current_user.id).all()
+    port = [p.to_dict() for p in portfolio]
+    return jsonify(port)
