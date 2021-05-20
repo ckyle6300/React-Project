@@ -21,7 +21,7 @@ const PortfolioForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (user?.amount < (num_of_shares * mkt?.current_price)) {
+    if (user?.amount < (num_of_shares * mkt?.current_price) || num_of_shares <= 0) {
       alert("Insuficient Funds")
     } else {
       const portfolioData = {

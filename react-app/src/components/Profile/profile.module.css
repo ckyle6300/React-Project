@@ -44,6 +44,9 @@ thead th {
   padding: 1rem;
 }
 
+.profit{
+  margin-bottom:13px;
+}
 .profit span{
   font-size: x-large;
 }

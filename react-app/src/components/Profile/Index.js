@@ -6,6 +6,7 @@ import { setDbCoin } from '../../store/dbcoins';
 import styles from './profile.module.css';
 import Sell from '../Sell/index';
 import SellButton from '../Sell/SellButton'
+import PieChart from '../PieChart/index'
 
 
 const Profile = () => {
@@ -16,6 +17,7 @@ const Profile = () => {
   const coins = useSelector(state => state.coins);
 
   const newDbCoins = Object.values(dbcoins)
+  console.log(newDbCoins);
   const newPort = []
 
   for (let i = 0; i < portfolio.length; i++) {
@@ -27,6 +29,8 @@ const Profile = () => {
       }
     }
   }
+
+  console.log(newPort)
 
   const mkt = Object.values(coins)
   const allInfo = [];
@@ -41,11 +45,12 @@ const Profile = () => {
   }
 
   let portfolioVal = 0;
-  let boughtAt = 0
+  let boughtAt = 0;
 
+  console.log(allInfo)
   allInfo.forEach((crypto) => {
-    portfolioVal += crypto.num_of_shares * crypto.current_price;
-    boughtAt += crypto.num_of_shares * crypto.buying_price;
+    portfolioVal += (crypto.num_of_shares * crypto.current_price);
+    boughtAt += (crypto.num_of_shares * crypto.buying_price);
   })
 
   useEffect(() => {
@@ -69,6 +74,15 @@ const Profile = () => {
           })}
           </h2>
         </div>
+        <div className={styles.profit}>
+          <span>Total Profit / Loss: </span>
+          <span className={((portfolioVal + user?.amount) - 10000) >= 0 ? styles.green : styles.red}>
+            {((portfolioVal + user?.amount) - 10000).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            })}
+          </span>
+        </div>
         <div>
           <h4>
             Cash on hand: {(user?.amount)?.toLocaleString('en-US', {
@@ -78,7 +92,7 @@ const Profile = () => {
           </h4>
         </div>
         <div className={styles.profit}>
-          <span>Profit / Loss: </span>
+          <span>Holdings Profit / Loss: </span>
           <span className={(portfolioVal - boughtAt) >= 0 ? styles.green : styles.red}>
             {(portfolioVal - boughtAt).toLocaleString('en-US', {
               style: 'currency',
@@ -97,6 +111,9 @@ const Profile = () => {
           }
         </div>
       </div>
+      {/* <div>
+        <PieChart allInfo={allInfo} total={(portfolioVal + user?.amount)} cash={user?.amount} />
+      </div> */}
       <div className={styles.divFlex}>
         <div className={styles.left}>
 
