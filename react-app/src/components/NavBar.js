@@ -167,6 +167,7 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
             onClick={closeModalSearch}
+            close={closeModalSearch}
           />
         </Modal>
       </div>

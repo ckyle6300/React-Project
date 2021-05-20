@@ -4,7 +4,7 @@ import { NavLink, useHistory, useParams } from 'react-router-dom';
 import styles from './search.module.css'
 
 
-const Search = () => {
+const Search = ({ close }) => {
   const { name } = useParams()
   const coins = useSelector(state => state.coins)
   const [search, setSearch] = useState('');
@@ -32,7 +32,7 @@ const Search = () => {
       {
         searchArr?.map((crypto) => (
           <div className={styles.outerDiv}>
-            <NavLink to={`/cryptos/${crypto.id}`} className={styles.searchDiv}>
+            <NavLink to={`/cryptos/${crypto.id}`} className={styles.searchDiv} onClick={(e) => close()}>
               <div className={styles.contentDiv}><img src={crypto.image} className={styles.cryptoImg} /></div>
               <div className={styles.contentDiv}><p>{crypto.name}</p></div>
             </NavLink>
