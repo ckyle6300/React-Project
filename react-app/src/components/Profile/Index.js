@@ -5,8 +5,9 @@ import { getPort } from '../../store/portfolio';
 import { setDbCoin } from '../../store/dbcoins';
 import styles from './profile.module.css';
 import Sell from '../Sell/index';
-import SellButton from '../Sell/SellButton'
-import PieChart from '../PieChart/index'
+import SellButton from '../Sell/SellButton';
+import Story from '../Story/Index'
+import { getStories } from '../../store/stories';
 
 
 const Profile = () => {
@@ -15,9 +16,11 @@ const Profile = () => {
   const portfolio = useSelector(state => state.portfolio);
   const dbcoins = useSelector(state => state.dbcoins);
   const coins = useSelector(state => state.coins);
+  let stories = useSelector(state => state.stories.status_updates);
 
+  stories = stories?.slice(0, 10);
   const newDbCoins = Object.values(dbcoins)
-  console.log(newDbCoins);
+
   const newPort = []
 
   for (let i = 0; i < portfolio.length; i++) {
@@ -29,8 +32,6 @@ const Profile = () => {
       }
     }
   }
-
-  console.log(newPort)
 
   const mkt = Object.values(coins)
   const allInfo = [];
@@ -47,7 +48,6 @@ const Profile = () => {
   let portfolioVal = 0;
   let boughtAt = 0;
 
-  console.log(allInfo)
   allInfo.forEach((crypto) => {
     portfolioVal += (crypto.num_of_shares * crypto.current_price);
     boughtAt += (crypto.num_of_shares * crypto.buying_price);
@@ -56,6 +56,7 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getPort())
     dispatch(setDbCoin())
+    dispatch(getStories())
   }, [dispatch])
 
   useEffect(() => {
@@ -111,9 +112,6 @@ const Profile = () => {
           }
         </div>
       </div>
-      {/* <div>
-        <PieChart allInfo={allInfo} total={(portfolioVal + user?.amount)} cash={user?.amount} />
-      </div> */}
       <div className={styles.divFlex}>
         <div className={styles.left}>
 
@@ -167,6 +165,11 @@ const Profile = () => {
               }
             </tbody>
           </table>
+          <div>
+            {stories?.map(story => (
+              <Story key={story.created_at} info={story} />
+            ))}
+          </div>
         </div>
         <div className={styles.right}>
           <WatchList />

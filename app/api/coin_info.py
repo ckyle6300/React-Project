@@ -36,3 +36,9 @@ def chartInfo(name):
         interval="daily",
     )
     return info
+
+
+@coin_routes.route("/status")
+def statusUpdata():
+    info = cg.get_status_updates()
+    return info
