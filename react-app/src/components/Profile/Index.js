@@ -106,7 +106,7 @@ const Profile = () => {
             <>
               <span>Profit / Loss %: </span>
               <span className={((portfolioVal / boughtAt) - 1) >= 0 ? styles.green : styles.red}>
-                {((portfolioVal / boughtAt) - 1).toLocaleString()}%
+                {((((portfolioVal + user?.amount) - 10000) / 10000) * 100).toLocaleString()}%
               </span>
             </>
           }
@@ -165,7 +165,8 @@ const Profile = () => {
               }
             </tbody>
           </table>
-          <div>
+          <div className={styles.stories}>
+            <h2>Project Announcements</h2>
             {stories?.map(story => (
               <Story key={story.created_at} info={story} />
             ))}

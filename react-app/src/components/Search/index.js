@@ -13,7 +13,11 @@ const Search = ({ close }) => {
   const vals = Object.values(coins);
   let searchArr = []
   if (search) {
-    searchArr = vals?.filter(crypto => crypto.name?.toLowerCase().includes(search.toLowerCase()));
+    searchArr = vals?.filter(crypto => {
+      if (crypto.name?.toLowerCase().includes(search.toLowerCase()) || crypto.symbol?.toLowerCase().includes(search.toLowerCase())) {
+        return crypto;
+      }
+    });
   }
 
 

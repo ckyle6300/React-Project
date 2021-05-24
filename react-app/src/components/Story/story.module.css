@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+}
+
+.header img{
+  margin-right: .7rem;
+}
+
+.outer{
+  background-color: rgb(66, 63, 63);
+  color: white;
+  padding: 1rem;
+  margin: .1rem;
+}

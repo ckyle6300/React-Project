@@ -1,12 +1,29 @@
 import React from 'react';
+import styles from './story.module.css'
 
 const Story = ({ info }) => {
-  //need to get description info and add links
+  let descArr = info.description.split(' ');
+  console.log(info);
+  let newDescription = descArr.map(word => {
+    if (word.includes('http')) {
+      let link = word.indexOf('http');
+      let newWord = word.slice(link);
+      return `<a href=${newWord}>${word}</a>`
+    }
+    return word;
+  })
+
+  const word = newDescription.join(' ');
 
   return (
-    <div>
-      <div>
-        <img src={info.project.image.small} />
+    <div className={styles.outer}>
+      <div className={styles.header}>
+        <div>
+          <img src={info.project.image.small} />
+        </div>
+        <div>
+          <h3>{info.project.name}</h3>
+        </div>
       </div>
       { info.project.user_title &&
         <div>
@@ -21,8 +38,7 @@ const Story = ({ info }) => {
         <p>{(info.created_at).toLocaleString('UTC')}</p>
       </div>
       <div>
-        <p dangerouslySetInnerHTML={{ __html: info.description }} />
-        <p>{info.description}</p>
+        <p dangerouslySetInnerHTML={{ __html: word }} />
       </div>
     </div>
   )
