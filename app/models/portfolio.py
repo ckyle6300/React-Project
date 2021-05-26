@@ -15,7 +15,7 @@ class Portfolio(db.Model):
     date_bought = db.Column(db.DateTime, default=datetime.now())
 
     user = db.relationship("User", backref="portfolio", uselist=False)
-    cryptos = db.relationship("Crypto", backref="portfolios")
+    cryptos = db.relationship("Crypto", backref="portfolios", uselist=False)
 
     def to_dict(self):
         return {
@@ -25,4 +25,5 @@ class Portfolio(db.Model):
             "crypto_id": self.crypto_id,
             "date_bought": self.date_bought,
             "buying_price": self.buying_price,
+            "crypto": self.cryptos.to_dict(),
         }

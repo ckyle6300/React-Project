@@ -3,7 +3,7 @@ import styles from './story.module.css'
 
 const Story = ({ info }) => {
   let descArr = info.description.split(' ');
-  console.log(info);
+
   let newDescription = descArr.map(word => {
     if (word.includes('http')) {
       let link = word.indexOf('http');

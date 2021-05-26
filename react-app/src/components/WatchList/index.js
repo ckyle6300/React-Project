@@ -36,7 +36,6 @@ const WatchList = () => {
 
   const deleteCrypto = (name) => {
     const id = dbCoins[name].id
-    console.log(id)
     dispatch(delFromWl(id))
   }
 

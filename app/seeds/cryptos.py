@@ -10,7 +10,8 @@ def seed_cryptos():
         for obj in coins:
             name = obj["name"]
             abrv = obj["symbol"]
-            seed_crypto = Crypto(name=name, abrv=abrv)
+            storeId = obj["id"]
+            seed_crypto = Crypto(name=name, abrv=abrv, storeId=storeId)
             db.session.add(seed_crypto)
 
     auto_seed()

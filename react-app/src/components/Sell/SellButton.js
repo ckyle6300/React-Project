@@ -30,7 +30,7 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const SellButton = ({ crypto }) => {
+const SellButton = ({ crypto, dbCrypto }) => {
 
   const [modalIsOpenSell, setIsOpenSell] = useState(false);
 
@@ -54,6 +54,7 @@ const SellButton = ({ crypto }) => {
         <Sell
           onClick={closeModalSell}
           crypto={crypto}
+          dbCrypto={dbCrypto}
           close={closeModalSell}
         />
       </Modal>

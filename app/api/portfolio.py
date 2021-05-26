@@ -27,7 +27,9 @@ def buy():
     db.session.commit()
 
     portfolio = Portfolio.query.filter(Portfolio.user_id == id).all()
+    print(portfolio, "5555555555555555555555555555555")
     port = [p.to_dict() for p in portfolio]
+    print(port, " 777777777777777777777777777")
     return jsonify(port)
 
 

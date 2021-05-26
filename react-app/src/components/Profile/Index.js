@@ -14,42 +14,18 @@ const Profile = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   const portfolio = useSelector(state => state.portfolio);
-  const dbcoins = useSelector(state => state.dbcoins);
   const coins = useSelector(state => state.coins);
   let stories = useSelector(state => state.stories.status_updates);
 
   stories = stories?.slice(0, 10);
-  const newDbCoins = Object.values(dbcoins)
-
-  const newPort = []
-
-  for (let i = 0; i < portfolio.length; i++) {
-    const portObj = portfolio[i];
-    for (let j = 0; j < newDbCoins.length; j++) {
-      const dbObj = newDbCoins[j];
-      if (portObj.crypto_id == dbObj.id) {
-        newPort.push({ ...portObj, ...dbObj })
-      }
-    }
-  }
-
-  const mkt = Object.values(coins)
-  const allInfo = [];
-  for (let i = 0; i < mkt.length; i++) {
-    const portObj = mkt[i];
-    for (let j = 0; j < newPort.length; j++) {
-      const dbObj = newPort[j];
-      if (portObj.name == dbObj.name) {
-        allInfo.push({ ...portObj, ...dbObj })
-      }
-    }
-  }
 
   let portfolioVal = 0;
   let boughtAt = 0;
 
-  allInfo.forEach((crypto) => {
-    portfolioVal += (crypto.num_of_shares * crypto.current_price);
+  portfolio.forEach((crypto) => {
+    let mktCoins = coins[crypto.crypto.storeId]
+
+    portfolioVal += (crypto.num_of_shares * mktCoins?.current_price);
     boughtAt += (crypto.num_of_shares * crypto.buying_price);
   })
 
@@ -61,7 +37,7 @@ const Profile = () => {
 
   useEffect(() => {
 
-  }, [coins, allInfo, user])
+  }, [coins, user])
 
 
   return (
@@ -78,7 +54,7 @@ const Profile = () => {
         <div className={styles.profit}>
           <span>Total Profit / Loss: </span>
           <span className={((portfolioVal + user?.amount) - 10000) >= 0 ? styles.green : styles.red}>
-            {((portfolioVal + user?.amount) - 10000).toLocaleString('en-US', {
+            {((portfolioVal + user?.amount) - 10000)?.toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
             })}
@@ -95,7 +71,7 @@ const Profile = () => {
         <div className={styles.profit}>
           <span>Holdings Profit / Loss: </span>
           <span className={(portfolioVal - boughtAt) >= 0 ? styles.green : styles.red}>
-            {(portfolioVal - boughtAt).toLocaleString('en-US', {
+            {(portfolioVal - boughtAt)?.toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
             })}
@@ -106,7 +82,7 @@ const Profile = () => {
             <>
               <span>Profit / Loss %: </span>
               <span className={((portfolioVal / boughtAt) - 1) >= 0 ? styles.green : styles.red}>
-                {((((portfolioVal + user?.amount) - 10000) / 10000) * 100).toLocaleString()}%
+                {((((portfolioVal + user?.amount) - 10000) / 10000) * 100)?.toLocaleString()}%
               </span>
             </>
           }
@@ -129,35 +105,35 @@ const Profile = () => {
             </thead>
             <tbody>
               {
-                allInfo.map((obj) => (
+                portfolio.map((crypto) => (
                   <tr>
                     <td className={styles.tdFlex}>
-                      <img src={obj.image} className={styles.img} />
-                      <span>{obj.name}</span>
+                      <img src={coins[crypto.crypto.storeId]?.image} className={styles.img} />
+                      <span>{coins[crypto.crypto.storeId]?.name}</span>
                     </td>
-                    <td>{(obj.date_bought).toLocaleString()}</td>
+                    <td>{(crypto.date_bought)?.toLocaleString()}</td>
                     <td className={styles.ps}>
-                      <p>${(obj.current_price).toLocaleString()}</p>
-                      <p className={obj.price_change_percentage_24h >= 0 ? styles.green : styles.red}>
-                        {(obj.price_change_percentage_24h).toLocaleString()}%
+                      <p>${(coins[crypto.crypto.storeId]?.current_price)?.toLocaleString()}</p>
+                      <p className={coins[crypto.crypto.storeId]?.price_change_percentage_24h >= 0 ? styles.green : styles.red}>
+                        {(coins[crypto.crypto.storeId]?.price_change_percentage_24h)?.toLocaleString()}%
                       </p>
                     </td>
-                    <td>{obj.num_of_shares}</td>
-                    <td>${(obj.current_price * obj.num_of_shares).toLocaleString()}</td>
+                    <td>{crypto.num_of_shares}</td>
+                    <td>${(coins[crypto.crypto.storeId]?.current_price * crypto.num_of_shares)?.toLocaleString()}</td>
                     <td className={styles.ps}>
-                      <p className={(obj.current_price * obj.num_of_shares) - (obj.buying_price * obj.num_of_shares) >= 0 ? styles.green : styles.red}>
-                        {((obj.current_price * obj.num_of_shares) - (obj.buying_price * obj.num_of_shares)).toLocaleString('en-US', {
+                      <p className={(coins[crypto.crypto.storeId]?.current_price * crypto.num_of_shares) - (crypto.buying_price * crypto.num_of_shares) >= 0 ? styles.green : styles.red}>
+                        {((coins[crypto.crypto.storeId]?.current_price * crypto.num_of_shares) - (crypto.buying_price * crypto.num_of_shares))?.toLocaleString('en-US', {
                           style: 'currency',
                           currency: 'USD',
                         })}
                       </p>
-                      <p className={(((obj.current_price * obj.num_of_shares) / (obj.buying_price * obj.num_of_shares)) - 1) >= 0 ? styles.green : styles.red}>
-                        {(((obj.current_price * obj.num_of_shares) / (obj.buying_price * obj.num_of_shares)) - 1).toLocaleString()}%
+                      <p className={(((coins[crypto.crypto.storeId]?.current_price * crypto.num_of_shares) / (crypto.buying_price * crypto.num_of_shares)) - 1) >= 0 ? styles.green : styles.red}>
+                        {(((coins[crypto.crypto.storeId]?.current_price * crypto.num_of_shares) / (crypto.buying_price * crypto.num_of_shares)) - 1)?.toLocaleString()}%
                     </p>
                     </td>
                     <td>
                       <div>
-                        <SellButton crypto={obj} />
+                        <SellButton crypto={coins[crypto.crypto.storeId]} dbCrypto={crypto} />
                       </div>
                     </td>
                   </tr>
