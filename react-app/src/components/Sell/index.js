@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 import styles from './sell.module.css';
 import { updateCoin, deleteCoin } from '../../store/portfolio';
 import { changeAmount } from '../../store/session';
 
 const Sell = ({ crypto, close, dbCrypto }) => {
-  console.log(crypto);
-  console.log(dbCrypto);
   const dispatch = useDispatch();
-  const history = useHistory();
   const user = useSelector(state => state.session.user)
-  // const dbCoin = useSelector(state => state.dbcoins);
-  // const portfolio = useSelector(state => state.portfolio);
-
-  // const coin = portfolio.filter(obj => obj.date_bought == crypto.date_bought)[0];
 
   const [num_of_shares, setNum_of_shares] = useState(0);
 
