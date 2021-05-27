@@ -78,19 +78,19 @@ export default function oneCoinReducer(state = [], action) {
     case GET_WL:
       const newState = {}
       action.payload.forEach(obj => {
-        newState[obj.name] = obj
+        newState[obj.storeId] = obj
       });
       return newState
     case ADD_TO_WL:
       const otherState = {}
       action.payload.forEach(obj => {
-        otherState[obj.name] = obj
+        otherState[obj.storeId] = obj
       });
       return otherState
     case DEL_WL:
       const delState = {}
       action.payload.forEach(obj => {
-        delState[obj.name] = obj
+        delState[obj.storeId] = obj
       });
       return delState
 

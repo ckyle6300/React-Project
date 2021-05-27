@@ -77,7 +77,7 @@ const CryptoInfo = () => {
 
   const handleClick = (e) => {
     e.preventDefault()
-    const crypto = dbCoins[coinData?.name]
+    const crypto = dbCoins[coinData?.id]
     const crypto_id = crypto.id
     const data = {
       crypto_id,

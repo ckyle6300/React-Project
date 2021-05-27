@@ -13,18 +13,18 @@ const WatchList = () => {
   const coins = useSelector(state => state.coins)
   const dbCoins = useSelector(state => state.dbcoins)
 
-  const newWL = [];
+  const newWL = Object.values(watchlist);
 
-  const coinVal = Object.values(coins)
-  const wlVal = Object.values(watchlist)
+  // const coinVal = Object.values(coins)
+  // const wlVal = Object.values(watchlist)
 
-  for (let i = 0; i < coinVal.length; i++) {
-    for (let j = 0; j < wlVal.length; j++) {
-      if (coinVal[i].symbol == wlVal[j].abrv) {
-        newWL.push(coinVal[i])
-      }
-    }
-  }
+  // for (let i = 0; i < coinVal.length; i++) {
+  //   for (let j = 0; j < wlVal.length; j++) {
+  //     if (coinVal[i].symbol == wlVal[j].abrv) {
+  //       newWL.push(coinVal[i])
+  //     }
+  //   }
+  // }
 
   useEffect(() => {
     dispatch(getAllWl())
@@ -39,7 +39,6 @@ const WatchList = () => {
     dispatch(delFromWl(id))
   }
 
-
   return (
     <>
       <div className={styles.header}><h3>Watchlist</h3>
@@ -47,23 +46,23 @@ const WatchList = () => {
           newWL?.map(crypto => (
             <div className={styles.outerDiv}>
               <div className={styles.title}>
-                <h4><NavLink to={`/cryptos/${crypto.id}`}>{crypto.symbol}</NavLink></h4>
+                <h4><NavLink to={`/cryptos/${crypto.storeId}`}>{crypto.abrv}</NavLink></h4>
               </div>
               <div className={styles.innerDiv} >
                 <div className={styles.info}>
                   <p>
-                    {(crypto.current_price).toLocaleString('en-US', {
+                    {(coins[crypto?.storeId]?.current_price)?.toLocaleString('en-US', {
                       style: 'currency',
                       currency: 'USD',
                     })}
                   </p>
-                  <p className={crypto.price_change_percentage_24h >= 0 ? styles.green : styles.red}>
-                    {(crypto.price_change_percentage_24h).toLocaleString()}%
+                  <p className={coins[crypto?.storeId]?.price_change_percentage_24h >= 0 ? styles.green : styles.red}>
+                    {(coins[crypto?.storeId]?.price_change_percentage_24h)?.toLocaleString()}%
                   </p>
                 </div>
               </div>
               <div className={styles.del}>
-                <img className={styles.xImg} src="https://cdn.xxl.thumbs.canstockphoto.com/cross-sign-red-element-cross-sign-element-red-x-icon-isolated-on-white-background-simple-mark-clip-art-vector_csp44320065.jpg" value={crypto.name} onClick={e => deleteCrypto(crypto.name)} />
+                <img className={styles.xImg} src="https://cdn.xxl.thumbs.canstockphoto.com/cross-sign-red-element-cross-sign-element-red-x-icon-isolated-on-white-background-simple-mark-clip-art-vector_csp44320065.jpg" value={crypto.storeId} onClick={e => deleteCrypto(crypto.storeId)} />
               </div>
             </div>
           ))

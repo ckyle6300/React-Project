@@ -16,7 +16,7 @@ const PortfolioForm = () => {
   const [num_of_shares, setNum_of_shares] = useState(0);
 
   const mkt = mktCoin[coin?.id];
-  const currCoin = dbCoin[coin?.name]
+  const currCoin = dbCoin[coin?.id]
 
   const handleSubmit = (e) => {
     e.preventDefault();

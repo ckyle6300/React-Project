@@ -22,6 +22,7 @@ def add():
     user.cryptos1.append(crypto)
     db.session.commit()
     info = [crypto.to_dict() for crypto in user.cryptos1]
+    print(info, "888888888888888888888888888888888")
     return jsonify(info)
 
 

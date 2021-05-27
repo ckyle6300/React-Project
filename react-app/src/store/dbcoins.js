@@ -27,7 +27,7 @@ export default function dbCoinReducer(state = {}, action) {
     case GET_DBCOINS:
       const newState = {}
       action.payload.forEach(obj => {
-        newState[obj.name] = obj
+        newState[obj.storeId] = obj
       });
       return newState
     default:
