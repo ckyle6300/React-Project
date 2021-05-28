@@ -15,17 +15,6 @@ const WatchList = () => {
 
   const newWL = Object.values(watchlist);
 
-  // const coinVal = Object.values(coins)
-  // const wlVal = Object.values(watchlist)
-
-  // for (let i = 0; i < coinVal.length; i++) {
-  //   for (let j = 0; j < wlVal.length; j++) {
-  //     if (coinVal[i].symbol == wlVal[j].abrv) {
-  //       newWL.push(coinVal[i])
-  //     }
-  //   }
-  // }
-
   useEffect(() => {
     dispatch(getAllWl())
   }, [dispatch])
