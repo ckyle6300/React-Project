@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllWl, delFromWl } from '../../store/watchlist'
 import styles from './watchList.module.css'
 import { NavLink } from 'react-router-dom';
+import { setDbCoin } from '../../store/dbcoins';
 
 
 const WatchList = () => {
@@ -17,6 +18,7 @@ const WatchList = () => {
 
   useEffect(() => {
     dispatch(getAllWl())
+    dispatch(setDbCoin())
   }, [dispatch])
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const WatchList = () => {
   }, [coins])
 
   const deleteCrypto = (name) => {
-    const id = dbCoins[name].id
+    const id = dbCoins[name]?.id
     dispatch(delFromWl(id))
   }
 
